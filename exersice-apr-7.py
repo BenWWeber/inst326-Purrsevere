@@ -5,3 +5,6 @@ print("This is Hagan")
 
 # message from Jadon
 print("This is Jadon")
+
+# message from Connor
+print("This is Connor")
