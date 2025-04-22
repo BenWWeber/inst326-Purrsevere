@@ -41,6 +41,5 @@ def validate_input(user_input, ):
         
 if __name__ == "__main__":
     user_input = "start"
-    # user_input = "end"
     
     print(validate_input(user_input))
