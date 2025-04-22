@@ -1,18 +1,6 @@
 import re
 import random
 
-# make_deck description:
-# Creates multiple decks at the beginning of the game that the user can choose 
-# from. Chooses x attack cards, y defense cards, z buff/weakness cards, each 
-# with assigned strength points. Each deck is assigned a total strength points 
-# value, sum of chosen cards. cannot exceed this value. 
-# 
-# The algorithm will need: 
-#  - Card names, descriptions, and stats, which will be pulled from and created 
-#        algorithmically from a data file
-#  - Specified numbers of cards to put in deck
-#  - Max power level of deck
-
 # info on cards: 
 # - attack, defence, buff, debuff
 # - all have accuracy and strength points
@@ -20,8 +8,6 @@ import random
 # damage cards' magnitude comes in tuples with min/max
 # defence cards' magnitude is just one number
 # buff and debuff cards' magnitude come in %
-#
-# every deck should have at least one attack, one defence, and one buff/debuff
 
 # card class
 class Card():
@@ -41,6 +27,17 @@ class Card():
                 + f'Power Level: {self.power_level}, '
                 + f'Accuracy: {self.accuracy}')
     
+# make_deck description:
+# Creates multiple decks at the beginning of the game that the user can choose 
+# from. Chooses cards with assigned strength points. The sum of these values 
+# shoud not go higher than a specified max power level. Every deck should have 
+# at least one attack, one defence, and one buff/debuff card.
+# 
+# The algorithm will need: 
+#  - Card names, descriptions, and stats, which will be pulled from and created 
+#        algorithmically from a data file
+#  - Specified numbers of cards to put in deck
+#  - Max power level of deck
 
 # deck function (4/22 deliverable)
 def make_deck(path, max_count, max_power):
@@ -124,9 +121,6 @@ def make_deck(path, max_count, max_power):
                 if card.power_level == strongest_cards[0].power_level:
                     strongest_cards.append(card)
             
-            for card in strongest_cards:
-                print(card.power_level)
-            
             current_card = strongest_cards.pop(random.randint(0, len(strongest_cards) - 1))
             power += current_card.power_level
             deck.append(current_card)
@@ -140,7 +134,7 @@ def make_deck(path, max_count, max_power):
 # for testing
 if __name__ == "__main__":
 
-    # make 5 decks
+    # make 5 decks with max 6 cards and max power level of 15
     decks = list()
     while len(decks) < 5:
         decks.append(make_deck('player_cards.txt', 6, 15))
