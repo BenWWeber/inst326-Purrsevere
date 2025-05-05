@@ -173,16 +173,6 @@ class Game:
         else:
             return f"Attack missed! Damage dealt: 0"
         
-    if __name__ == "__main__":
-        # Attack card with 80% accuracy and damage between 10 and 30
-        accuracy = 80
-        damage_range = (10, 30)
-        attacker_buff = 1.5 # attack buff applied
-        defender_debuff = 1.3 # debuff applied
-
-        print(resolve_attack(accuracy, damage_range, attacker_buff, 
-            defender_debuff))
-        
     def show_deck():
         """ Mock function that will return/show the deck the given deck
         """
@@ -352,3 +342,19 @@ def make_deck(path, max_count, max_power):
             deck.append(current_card)
         
     return deck
+
+class Player:
+    """Creates player object with stats"""
+    def __init__(self):
+        self.health = 100
+        self.attack_multiplier = 1
+        self.defense_multiplier = 1
+    
+    def checkHealth(self):
+        return self.health
+    
+    def checkAttack(self):
+        return self.attack_multiplier
+    
+    def checkDefense(self):
+        return self.defense_multiplier    
