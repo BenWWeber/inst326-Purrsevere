@@ -4,12 +4,12 @@ import random
 cat_available_cards = {'scratch': range(15, 26), 
                        'pounce': range(30, 61),
                        'hair_raise': 20,
-                       'hiss': 1.2
+                       'A_hiss': 1.2
                     }
 owner_available_cards = {'scrub': range(15, 31),
                         'pour': range(30, 56),
                         'gloves': 15,
-                        'energy_drink': 1.15
+                        'A_energy_drink': 1.15
                     }
 owner_hp = 100
 cat_hp = 100
