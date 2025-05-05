@@ -1,13 +1,13 @@
 import random
 
 #2 attack cards, 1 defense card, 1 power up
-cat_available_cards = {'scratch': range(15, 25), 
-                       'pounce': range(30, 60),
+cat_available_cards = {'scratch': range(15, 26), 
+                       'pounce': range(30, 61),
                        'hair_raise': 20,
                        'hiss': 1.2
                     }
-owner_available_cards = {'scrub': range(15, 30),
-                        'pour': range(30, 55),
+owner_available_cards = {'scrub': range(15, 31),
+                        'pour': range(30, 56),
                         'gloves': 15,
                         'energy_drink': 1.15
                     }
