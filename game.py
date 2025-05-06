@@ -222,10 +222,18 @@ if __name__ == "__main__":
         apply_card_effect(card, player, cat)
         if cat.is_defeated():
             print("You win!")
+            print('''\n      |\      _,,,---,,_
+ZZZzz /,`.-'`'    -.  ;-;;,_
+     |,4-  ) )-,_. ,\ (  `'-'
+    '---''(_/--'  `-'\_)''')
             break
         computerTurn = computer_card_draw(player.health, cat.health, 
                                           cat_deck, player_deck)
         apply_card_effect(computerTurn, cat, player)
         if player.is_defeated():
             print("Cat wins!")
+            print('''\n      |\      _,,,---,,_
+ZZZzz /,`.-'`'    -.  ;-;;,_
+     |,4-  ) )-,_. ,\ (  `'-'
+    '---''(_/--'  `-'\_)''')
             break
