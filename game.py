@@ -127,7 +127,8 @@ def apply_card_effect(card, user, target):
         )
         if hit:
             target.health -= dmg
-            print(f"{user.name}'s {card.name} hits for {dmg} damage!")
+            print(f"{user.name}'s {card.name} hits for {dmg} damage! "
+                + f"{target.name} has {target.health} health left.")
         else:
             print(f"{user.name}'s {card.name} missed!")
     elif card.type == 'defense':
@@ -173,7 +174,7 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
             
     #draw attack card if can defeat owner (player)    
     #chooses strongest possible attack for increased chance of winning 
-    cat_attacks.sort(key=max(cat_attacks.magnitude), reverse=True)
+    cat_attacks.sort(key=lambda c: max(c.magnitude), reverse=True)
     if max(cat_attacks[0].magnitude) >= owner_hp:
         return cat_attacks[0]
         
@@ -214,11 +215,14 @@ if __name__ == "__main__":
     player_deck = player_decks[player_deck]
     
     player = Player()
-    cat = Player()
+    cat = Player("Cat")
     
     while not cat.is_defeated():
         card = game_menu(player_deck)
         apply_card_effect(card, player, cat)
+        computerTurn = computer_card_draw(player.health, cat.health, 
+                                          cat_deck, player_deck)
+        apply_card_effect(computerTurn, cat, player)
         
         if cat.is_defeated():
             print("You win!")
