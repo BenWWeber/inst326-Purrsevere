@@ -23,27 +23,27 @@ class Card:
         
         match self.type:
             case 'attack':
-                return (f'{self.name}: {self.description}. does '
+                return (f'{self.name}: does '
                 + f'{self.magnitude[0]} to {self.magnitude[1]} damage with '
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'defence':
-                return (f'{self.name}: {self.description}. adds '
+                return (f'{self.name}: adds '
                 + f'{self.magnitude} defence with '
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'attack buff':
-                return (f'{self.name}: {self.description}. add a '
+                return (f'{self.name}: add a '
                 + f'{int((self.magnitude-1)*100)}% buff to your attack with '
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'attack debuff':
-                return (f'{self.name}: {self.description}. add a '
+                return (f'{self.name}: add a '
                 + f"{int(self.magnitude*100)}% debuff to your cats' attack with "
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'defence buff':
-                return (f'{self.name}: {self.description}. add a '
+                return (f'{self.name}: add a '
                 + f'{int((self.magnitude-1)*100)}% buff to your defence with '
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'defence debuff':
-                return (f'{self.name}: {self.description}. add a '
+                return (f'{self.name}: add a '
                 + f"{int(self.magnitude*100)}% debuff to your cats' defence with "
                 + f'{int(self.accuracy*100)}% accuracy')
 
@@ -64,7 +64,10 @@ class Player:
             raise ValueError("Invalid stat; choose 'attack' or 'defense'")
 
     def is_defeated(self):
-        return self.health <= 0
+        if self.health <= 0:
+            return True
+        else: 
+            return False
 
     def __str__(self):
         return (
@@ -134,8 +137,10 @@ def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0, defender_mu
     damage = int(damage * user_multiplier * defender_multiplier)
     return True, damage
 
-def show_deck():
-    print("Deck: (chosen deck goes here)")
+def show_deck(deck, name=''):
+    print(f"Deck{name}:")
+    for card in deck:
+        print(f'\t{card}')
 
 def validate_input(user_input):
     print("Welcome to Purrsevere")
@@ -150,7 +155,7 @@ def validate_input(user_input):
             choice = int(input("Begin by choosing a deck [1-4]: "))
             if choice in decks:
                 print(f"Deck: {choice} chosen")
-                return show_deck()
+                return show_deck(decks)
             raise ValueError("Deck does not exist. Please enter 1, 2, 3, or 4")
         raise ValueError("Invalid input, please enter 'start' or 'end'")
 
@@ -270,6 +275,9 @@ def make_deck(path, max_count, max_power):
         
     return deck
 
+def print_menu(player_deck):
+    print('game menu goes here')
+
 if __name__ == "__main__":
     print('Welcome to Purrsevere!\n')
 
@@ -292,7 +300,12 @@ if __name__ == "__main__":
     player_deck, cat_deck = deck_selection(player_decks, cat_decks)
     player_deck = player_decks[player_deck]
     
-    print('chosen deck:')
-    for card in player_deck:
-        print(f'\t{card}')
+    player = Player()
+
+    while player.is_defeated:
+        print_menu(player_deck)
+
+        break
+
+
     
