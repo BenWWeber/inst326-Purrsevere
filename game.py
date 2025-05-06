@@ -127,6 +127,8 @@ def apply_card_effect(card, user, target):
         )
         if hit:
             target.health -= dmg
+            if target.health <= 0:
+                target.health = 0
             print(f"{user.name}'s {card.name} hits for {dmg} damage! "
                 + f"{target.name} has {target.health} health left.")
         else:
