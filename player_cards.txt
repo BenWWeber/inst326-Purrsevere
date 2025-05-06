@@ -7,11 +7,11 @@ armor up;put on some medival armor to protect against the cat;defence;80;3;.8
 armor up 2;just for testing;defence;80;3;.8
 gloves;put on some gloves so the scratches hurt less;defence;25;1;1
 gloves 2;just for testing;defence;25;1;1
-brush;brush your cat, making the bath easier;debuff;.3;2;.8
-brush 2;just for testing;debuff;.3;2;.8
-clip nails;clip your cat's nails, making it easier to give them a bath;debuff;.2;1;.8
-clip nails 2;just for testing;debuff;.2;1;.8
-give a treat;give your cat a treat, making them more accepting towards a bath;buff;.3;1;.7
-give a treat 2;just for testing;buff;.3;1;.7
-bring in a friend;bring your friend in to help keep your cat under control;buff;.5;3;.7
-bring in a friend 2;just for testing;buff;.5;3;.7
+brush;brush your cat, making the bath easier;defence debuff;.3;2;.8
+brush 2;just for testing;defence debuff;.3;2;.8
+clip nails;clip your cat's nails, making it easier to give them a bath;attack debuff;.2;1;.8
+clip nails 2;just for testing;attack debuff;.2;1;.8
+give a treat;give your cat a treat, making them more accepting towards a bath;attack buff;.3;1;.7
+give a treat 2;just for testing;attack buff;.3;1;.7
+bring in a friend;bring your friend in to help keep your cat under control;defence buff;.5;3;.7
+bring in a friend 2;just for testing;defence buff;.5;3;.7

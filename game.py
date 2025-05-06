@@ -30,15 +30,22 @@ class Card:
                 return (f'{self.name}: {self.description}. adds '
                 + f'{self.magnitude} defence with '
                 + f'{int(self.accuracy*100)}% accuracy')
-            case 'buff':
+            case 'attack buff':
                 return (f'{self.name}: {self.description}. add a '
                 + f'{int(self.magnitude*100)}% buff to your attack with '
                 + f'{int(self.accuracy*100)}% accuracy')
-            case 'debuff':
+            case 'attack debuff':
                 return (f'{self.name}: {self.description}. add a '
                 + f"{int(self.magnitude*100)}% debuff to your cats' attack with "
                 + f'{int(self.accuracy*100)}% accuracy')
-
+            case 'defence buff':
+                return (f'{self.name}: {self.description}. add a '
+                + f'{int(self.magnitude*100)}% buff to your defence with '
+                + f'{int(self.accuracy*100)}% accuracy')
+            case 'defence debuff':
+                return (f'{self.name}: {self.description}. add a '
+                + f"{int(self.magnitude*100)}% debuff to your cats' defence with "
+                + f'{int(self.accuracy*100)}% accuracy')
 
 
 class Player:
