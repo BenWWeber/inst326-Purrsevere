@@ -10,22 +10,49 @@ import random
 # buff and debuff cards' magnitude come in %
 
 # card class
-class Card():
-    def __init__(self, name, description, type, magnitude, power_level, accuracy):
+class Card:
+    def __init__(self, name, description, type_, magnitude, power_level, accuracy):
         self.name = name
         self.description = description
-        self.type = type
+        self.type = type_
         self.magnitude = magnitude
         self.power_level = power_level
         self.accuracy = accuracy
-        
+
+    def __repr__(self):
+        return (
+            f'Card Name: {self.name}, Description: {self.description}, '
+            f'Type: {self.type}, Magnitude: {self.magnitude}, '
+            f'Power Level: {self.power_level}, Accuracy: {self.accuracy}'
+        )
+    
     def __str__(self):
-        return (f'Card Name: {self.name}, '
-                + f'Description: {self.description}, '
-                + f'Type: {self.type}, '
-                + f'Magnitude: {self.magnitude}, '
-                + f'Power Level: {self.power_level}, '
-                + f'Accuracy: {self.accuracy}')
+        
+        match self.type:
+            case 'attack':
+                return (f'{self.name}: does '
+                + f'{self.magnitude[0]} to {self.magnitude[1]} damage with '
+                + f'{int(self.accuracy*100)}% accuracy')
+            case 'defence':
+                return (f'{self.name}: adds '
+                + f'{self.magnitude} defence with '
+                + f'{int(self.accuracy*100)}% accuracy')
+            case 'attack buff':
+                return (f'{self.name}: add a '
+                + f'{int((self.magnitude-1)*100)}% buff to your attack with '
+                + f'{int(self.accuracy*100)}% accuracy')
+            case 'attack debuff':
+                return (f'{self.name}: add a '
+                + f"{int(self.magnitude*100)}% debuff to your cats' attack with "
+                + f'{int(self.accuracy*100)}% accuracy')
+            case 'defence buff':
+                return (f'{self.name}: add a '
+                + f'{int((self.magnitude-1)*100)}% buff to your defence with '
+                + f'{int(self.accuracy*100)}% accuracy')
+            case 'defence debuff':
+                return (f'{self.name}: add a '
+                + f"{int(self.magnitude*100)}% debuff to your cats' defence with "
+                + f'{int(self.accuracy*100)}% accuracy')
     
 # make_deck description:
 # Creates multiple decks at the beginning of the game that the user can choose 
@@ -39,7 +66,7 @@ class Card():
 #  - Specified numbers of cards to put in deck
 #  - Max power level of deck
 
-# deck function (4/22 deliverable)
+# deck function
 def make_deck(path, max_count, max_power):
     deck = list()
     power = 0
@@ -59,7 +86,7 @@ def make_deck(path, max_count, max_power):
                 case 'attack':
                     
                     mag = card.group('magnitude').split(',')
-                    mag = {int(mag[0]),int(mag[1])}
+                    mag = (int(mag[0]),int(mag[1]))
                                         
                     attacks.append(Card(card.group('name'),
                                         card.group('description'),
@@ -74,7 +101,7 @@ def make_deck(path, max_count, max_power):
                                         float(card.group('magnitude')),
                                         float(card.group('power_level')),
                                         float(card.group('accuracy')),))
-                case 'buff' | 'debuff':
+                case 'attack buff' | 'attack debuff' | 'defence buff' | 'defence debuff':
                     buffs.append(Card(card.group('name'),
                                         card.group('description'),
                                         card.group('type'),
