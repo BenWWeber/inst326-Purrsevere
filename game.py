@@ -180,7 +180,7 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
         
     #choose between attack and powerup, greater chance of attack
     #randomly chooses attack
-    if random.random() < 0.7:
+    if random.random() < 0.7 or len(cat_powerups) == 0:
         return random.choice(cat_attacks)
     else:
         return random.choice(cat_powerups)
