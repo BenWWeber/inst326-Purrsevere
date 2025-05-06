@@ -13,9 +13,9 @@ def game_menu(deck):
             for card in deck:
                 print(card) 
         option = int(input("Select option: "))
-    selection = int(input(f"Select card 1-{len(deck)}: "))  
+    selection = int(input(f"Select card 1-{len(deck)}: ") - 1)  
     
-    return selection
+    return deck[selection]
     
    
         
