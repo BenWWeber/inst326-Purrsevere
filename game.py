@@ -216,8 +216,8 @@ if __name__ == "__main__":
     player_deck, cat_deck = deck_selection(player_decks, cat_decks)
     player_deck = player_decks[player_deck]
     
-    player = Player()
-    cat = Player("Cat")
+    player = Player("Player", 200)
+    cat = Player("Cat", 200)
     
     while not cat.is_defeated():
         card = game_menu(player_deck)
