@@ -1,6 +1,6 @@
-scrub;scrubs your cat, cleaning them up;attack;20,30;1;.95
-shampoo;shampoo your cat, heavily cleaning them;attack;50,60;2;.9
-rinse;rinse your cat, getting them wet and cleaning them;attack;35,40;1;.85
+scrub;scrubs your cat, cleaning them up;attack;20,30;1;.99
+shampoo;shampoo your cat, heavily cleaning them;attack;50,60;2;.65
+rinse;rinse your cat, getting them wet and cleaning them;attack;35,40;1;.8
 armor up;put on some medival armor to protect against the cat;defense;80;3;.8
 gloves;put on some gloves so the scratches hurt less;defense;25;1;1
 brush;brush your cat, making the bath easier;defense debuff;.3;2;.8
