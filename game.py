@@ -220,15 +220,12 @@ if __name__ == "__main__":
     while not cat.is_defeated():
         card = game_menu(player_deck)
         apply_card_effect(card, player, cat)
-        computerTurn = computer_card_draw(player.health, cat.health, 
-                                          cat_deck, player_deck)
-        apply_card_effect(computerTurn, cat, player)
-        
         if cat.is_defeated():
             print("You win!")
             break
-            
+        computerTurn = computer_card_draw(player.health, cat.health, 
+                                          cat_deck, player_deck)
+        apply_card_effect(computerTurn, cat, player)
         if player.is_defeated():
             print("Cat wins!")
             break
-    
