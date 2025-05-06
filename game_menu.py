@@ -11,7 +11,8 @@ def game_menu(deck):
     while option != 1:
         if option == 2:
             for card in deck:
-                print(card) 
+                print(card)
+            print() 
         option = int(input("Select option: "))
     selection = int(input(f"Select card 1-{len(deck)}: "))  
     
