@@ -216,7 +216,15 @@ if __name__ == "__main__":
     player = Player()
     cat = Player()
     
-    while cat.is_defeated:
+    while not cat.is_defeated():
         card = game_menu(player_deck)
         apply_card_effect(card, player, cat)
+        
+        if cat.is_defeated():
+            print("You win!")
+            break
+            
+        if player.is_defeated():
+            print("Cat wins!")
+            break
     
