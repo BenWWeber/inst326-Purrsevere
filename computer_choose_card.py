@@ -18,14 +18,16 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
         card object
 """
     cat_attacks = [card for card in cat_deck if card.type == 'attack']
-    cat_powerups = [card for card in cat_deck if card.type == 'buff'
-                    or card.type == 'debuff']
+    cat_powerups = [card for card in cat_deck if card.type[:-4] == 'buff']
     owner_attacks = [card for card in owner_deck if card.type == 'attack']
     
     #defend when owner's (player) attack can defeat cat (computer)
-    for card in owner_attacks:
-        if max(card.magnitude) >= cat_hp:
-            # select strongest defense card
+    cat_defense = [card for card in cat_powerups if card.type == 'defense buff']
+    if len(cat_defense) > 0:
+        for attack in owner_attacks:
+            if max(attack.magnitude) >= cat_hp:
+                cat_defense.sort(key=max(cat_defense.magnitude), reverse=True)
+                return cat_defense[0]
             
     #draw attack card if can defeat owner (player)    
     #chooses strongest possible attack for increased chance of winning 
