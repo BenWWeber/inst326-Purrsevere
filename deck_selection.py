@@ -7,6 +7,6 @@ def deck_selection(human_decks, cat_decks):
         for card in deck:
             print(card)
 
-    human_selection = int(input("Choose your deck: ") - 1)
+    human_selection = int(input("Choose your deck: ")) - 1
     computer_selection = random.choice(cat_decks)
     return human_selection, computer_selection

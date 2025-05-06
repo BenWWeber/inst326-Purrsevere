@@ -1,7 +1,7 @@
 import random
 import re
 from argparse import ArgumentParser
-
+from deck_selection import deck_selection
 
 class Card:
     def __init__(self, name, description, type_, magnitude, power_level, accuracy):
@@ -32,7 +32,7 @@ class Card:
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'attack buff':
                 return (f'{self.name}: {self.description}. add a '
-                + f'{int(self.magnitude*100)}% buff to your attack with '
+                + f'{int((self.magnitude-1)*100)}% buff to your attack with '
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'attack debuff':
                 return (f'{self.name}: {self.description}. add a '
@@ -40,7 +40,7 @@ class Card:
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'defence buff':
                 return (f'{self.name}: {self.description}. add a '
-                + f'{int(self.magnitude*100)}% buff to your defence with '
+                + f'{int((self.magnitude-1)*100)}% buff to your defence with '
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'defence debuff':
                 return (f'{self.name}: {self.description}. add a '
@@ -213,7 +213,7 @@ def make_deck(path, max_count, max_power):
                                         float(card.group('magnitude')),
                                         float(card.group('power_level')),
                                         float(card.group('accuracy')),))
-                case 'buff' | 'debuff':
+                case 'attack buff' | 'attack debuff' | 'defence buff' | 'defence debuff':
                     buffs.append(Card(card.group('name'),
                                         card.group('description'),
                                         card.group('type'),
@@ -282,15 +282,16 @@ if __name__ == "__main__":
     
     # make 3 player decks and 3 cat decks
     player_decks = list()
-    while len(player_decks) < 5:
+    while len(player_decks) < 3:
         player_decks.append(make_deck('player_cards.txt', 6, 15))
 
     cat_decks = list()
-    while len(cat_decks) < 5:
+    while len(cat_decks) < 3:
         cat_decks.append(make_deck('player_cards.txt', 6, 15)) # change path later
     
     player_deck, cat_deck = deck_selection(player_decks, cat_decks)
-
+    player_deck = player_decks[player_deck]
+    
     print('chosen deck:')
     for card in player_deck:
         print(f'\t{card}')
