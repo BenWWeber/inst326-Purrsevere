@@ -190,9 +190,6 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
     else:
         return random.choice(cat_powerups)
 
-def print_menu(player_deck):
-    print('game menu goes here')
-
 if __name__ == "__main__":
     '''
     
