@@ -146,6 +146,10 @@ def print_menu(player_deck):
     print('game menu goes here')
 
 if __name__ == "__main__":
+    '''
+    
+    ASCII art found at https://www.asciiart.eu/animals/cats
+    '''
     print('Welcome to Purrsevere!\n')
 
     print('''_._     _,-'""`-._
@@ -162,7 +166,7 @@ if __name__ == "__main__":
 
     cat_decks = list()
     while len(cat_decks) < 3:
-        cat_decks.append(make_deck('player_cards.txt', 6, 15)) # change path later
+        cat_decks.append(make_deck('cat_cards.txt', 6, 15))
     
     player_deck, cat_deck = deck_selection(player_decks, cat_decks)
     player_deck = player_decks[player_deck]
