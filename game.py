@@ -218,8 +218,11 @@ if __name__ == "__main__":
     
     player = Player("Player", 200)
     cat = Player("Cat", 200)
+    count = 1
     
     while not cat.is_defeated():
+        print(f"_____________________________________________________________"
+              + f"\nTurn {count}\n")
         card = game_menu(player_deck)
         apply_card_effect(card, player, cat)
         if cat.is_defeated():
@@ -239,3 +242,5 @@ ZZZzz /,`.-'`'    -.  ;-;;,_
      |,4-  ) )-,_. ,\ (  `'-'
     '---''(_/--'  `-'\_)''')
             break
+        
+        count += 1
