@@ -23,7 +23,7 @@ class Player:
     def is_defeated(self):
         if self.health <= 0:
             return True
-        else: 
+        else:
             return False
 
     def __str__(self):
@@ -80,6 +80,7 @@ def process_deck(input_file, cat_output_file, owner_output_file, deck_number):
         return
 
 def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0, defender_multiplier=1.0):
+    card_accuracy *= 100
     rng = random.random() * 100
     if rng >= card_accuracy:
         return False, 0
@@ -141,43 +142,6 @@ def apply_card_effect(card, user, target):
     else:
         print(f"Unknown card type: {card.type}")
 
-
-def print_menu(player_deck):
-    print('game menu goes here')
-
-if __name__ == "__main__":
-    '''
-    
-    ASCII art found at https://www.asciiart.eu/animals/cats
-    '''
-    print('Welcome to Purrsevere!\n')
-
-    print('''_._     _,-'""`-._
-(,-.`._,'(       |\`-/|
-    `-.-' \ )-`( , o o)
-          `-    \`_`"'-\n''')
-    
-    print('Start by choosing a deck:')
-    
-    # make 3 player decks and 3 cat decks
-    player_decks = list()
-    while len(player_decks) < 3:
-        player_decks.append(make_deck('player_cards.txt', 6, 15))
-
-    cat_decks = list()
-    while len(cat_decks) < 3:
-        cat_decks.append(make_deck('cat_cards.txt', 6, 15))
-    
-    player_deck, cat_deck = deck_selection(player_decks, cat_decks)
-    player_deck = player_decks[player_deck]
-    
-    player = Player()
-
-    while player.is_defeated:
-        game_menu(player_deck)
-
-        break
-
 def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
     """Determines which card the computer (cat) draws. Prioritizes defense
     (if computer can be defeated in one turn), then attack (if owner can be
@@ -219,4 +183,40 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
         return random.choice(cat_attacks)
     else:
         return random.choice(cat_powerups)
+
+def print_menu(player_deck):
+    print('game menu goes here')
+
+if __name__ == "__main__":
+    '''
+    
+    ASCII art found at https://www.asciiart.eu/animals/cats
+    '''
+    print('Welcome to Purrsevere!\n')
+
+    print('''_._     _,-'""`-._
+(,-.`._,'(       |\`-/|
+    `-.-' \ )-`( , o o)
+          `-    \`_`"'-\n''')
+    
+    print('Start by choosing a deck:')
+    
+    # make 3 player decks and 3 cat decks
+    player_decks = list()
+    while len(player_decks) < 3:
+        player_decks.append(make_deck('player_cards.txt', 6, 15))
+
+    cat_decks = list()
+    while len(cat_decks) < 3:
+        cat_decks.append(make_deck('cat_cards.txt', 6, 15))
+    
+    player_deck, cat_deck = deck_selection(player_decks, cat_decks)
+    player_deck = player_decks[player_deck]
+    
+    player = Player()
+    cat = Player()
+    
+    while cat.is_defeated:
+        card = game_menu(player_deck)
+        apply_card_effect(card, player, cat)
     
