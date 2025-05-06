@@ -2,11 +2,11 @@ import re
 import random
 
 # info on cards: 
-# - attack, defence, buff, debuff
+# - attack, defense, buff, debuff
 # - all have accuracy and strength points
 # 
 # damage cards' magnitude comes in tuples with min/max
-# defence cards' magnitude is just one number
+# defense cards' magnitude is just one number
 # buff and debuff cards' magnitude come in %
 
 # card class
@@ -33,9 +33,9 @@ class Card:
                 return (f'{self.name}: does '
                 + f'{self.magnitude[0]} to {self.magnitude[1]} damage with '
                 + f'{int(self.accuracy*100)}% accuracy')
-            case 'defence':
+            case 'defense':
                 return (f'{self.name}: adds '
-                + f'{self.magnitude} defence with '
+                + f'{self.magnitude} defense with '
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'attack buff':
                 return (f'{self.name}: add a '
@@ -45,20 +45,20 @@ class Card:
                 return (f'{self.name}: add a '
                 + f"{int(self.magnitude*100)}% debuff to your cats' attack with "
                 + f'{int(self.accuracy*100)}% accuracy')
-            case 'defence buff':
+            case 'defense buff':
                 return (f'{self.name}: add a '
-                + f'{int((self.magnitude-1)*100)}% buff to your defence with '
+                + f'{int((self.magnitude-1)*100)}% buff to your defense with '
                 + f'{int(self.accuracy*100)}% accuracy')
-            case 'defence debuff':
+            case 'defense debuff':
                 return (f'{self.name}: add a '
-                + f"{int(self.magnitude*100)}% debuff to your cats' defence with "
+                + f"{int(self.magnitude*100)}% debuff to your cats' defense with "
                 + f'{int(self.accuracy*100)}% accuracy')
     
 # make_deck description:
 # Creates multiple decks at the beginning of the game that the user can choose 
 # from. Chooses cards with assigned strength points. The sum of these values 
 # shoud not go higher than a specified max power level. Every deck should have 
-# at least one attack, one defence, and one buff/debuff card.
+# at least one attack, one defense, and one buff/debuff card.
 # 
 # The algorithm will need: 
 #  - Card names, descriptions, and stats, which will be pulled from and created 
@@ -71,7 +71,7 @@ def make_deck(path, max_count, max_power):
     deck = list()
     power = 0
     attacks = list()
-    defences = list()
+    defenses = list()
     buffs = list()
 
     # read in all the player cards and organize them by type
@@ -94,14 +94,14 @@ def make_deck(path, max_count, max_power):
                                         mag,
                                         float(card.group('power_level')),
                                         float(card.group('accuracy')),))
-                case 'defence':
-                    defences.append(Card(card.group('name'),
+                case 'defense':
+                    defenses.append(Card(card.group('name'),
                                         card.group('description'),
                                         card.group('type'),
                                         float(card.group('magnitude')),
                                         float(card.group('power_level')),
                                         float(card.group('accuracy')),))
-                case 'attack buff' | 'attack debuff' | 'defence buff' | 'defence debuff':
+                case 'attack buff' | 'attack debuff' | 'defense buff' | 'defense debuff':
                     buffs.append(Card(card.group('name'),
                                         card.group('description'),
                                         card.group('type'),
@@ -114,10 +114,10 @@ def make_deck(path, max_count, max_power):
     power += current_card.power_level
     deck.append(current_card)
     
-    # add one random defence and remove from list
-    current_card = defences.pop(random.randint(0, len(defences) - 1))
-    power += current_card.power_level
-    deck.append(current_card)
+    # add one random defense and remove from list (commented out for demo)
+    # current_card = defenses.pop(random.randint(0, len(defenses) - 1))
+    # power += current_card.power_level
+    # deck.append(current_card)
     
     # add one random buff/debuff and remove from list
     current_card = buffs.pop(random.randint(0, len(buffs) - 1))
@@ -125,8 +125,9 @@ def make_deck(path, max_count, max_power):
     deck.append(current_card)
     
     # put together the card lists
-    remaining_cards = attacks + defences + buffs
-    
+    # remaining_cards = attacks + defenses + buffs (commented out for demo)
+    remaining_cards = attacks + buffs
+
     # sort by power level, highest to lowest
     remaining_cards.sort(key=lambda s: s.power_level, reverse=True)
     
