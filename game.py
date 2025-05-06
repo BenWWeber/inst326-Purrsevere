@@ -73,57 +73,6 @@ class Player:
         )
 
 
-
-def deck_selection(player_decks, cat_decks):
-    # decks = list of decks
-
-    for idx, deck in enumerate(player_decks): # go through each deck
-        # print deck number in list
-        print(f'Deck {idx + 1}')
-        
-        for card in deck:
-            print(f'\t{card}')
-        # not needed each deck is now list of Cards
-        # # keys = list(deck.keys())
-
-        # # show two attacks
-        # for key in keys[:2]:
-        #     print(f'(Attack) {key}: {min(deck[key])} - {max(deck[key])}')
-
-        # # defense
-        # def_key = keys[2]
-        # print(f'(Defense) {def_key}: {deck[def_key]}')
-
-        # # powerup type
-        # powerup_type = 'attack stat' if keys[3][0] == 'A' else 'unknown'
-        # print(f'(Powerup: {powerup_type}) {keys[3]}: {deck[keys[3]]}\n')
-
-    human_selection = int(input("Choose your deck: "))
-    computer_selection = random.randint(0, len(cat_decks) - 1)
-    return player_decks[human_selection - 1], cat_decks[computer_selection]
-
-def computer_card_draw(owner_hp, cat_hp, cat_cards, owner_cards):
-    owner_keys = list(owner_cards.keys())
-    cat_keys = list(cat_cards.keys())
-    atk_1_max = max(cat_cards[cat_keys[0]])
-    atk_2_max = max(cat_cards[cat_keys[1]])
-
-    # defend if owner can kill cat
-    for i in range(2):
-        if max(owner_cards[owner_keys[i]]) >= cat_hp:
-            return cat_keys[2]
-
-    # attack if can kill owner
-    if atk_1_max > atk_2_max and atk_1_max >= owner_hp:
-        return cat_keys[0]
-    if atk_2_max >= owner_hp:
-        return cat_keys[1]
-
-    # otherwise random: 70% attack
-    if random.random() < 0.7:
-        return random.choice(cat_keys[:2])
-    return cat_keys[3]
-
 def process_deck(input_file, cat_output_file, owner_output_file, deck_number):
     try:
         with open(input_file, 'r', encoding="utf8") as file:
