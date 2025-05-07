@@ -176,7 +176,7 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
     if len(cat_defense) > 0:
         for attack in owner_attacks:
             if max(attack.magnitude) >= cat_hp:
-                cat_defense.sort(key=max(cat_defense.magnitude), reverse=True)
+                cat_defense.sort(key=lambda c: max(c.magnitude), reverse=True)
                 return cat_defense[0]
             
     #draw attack card if can defeat owner (player)    
