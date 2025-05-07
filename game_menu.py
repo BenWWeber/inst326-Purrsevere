@@ -12,8 +12,10 @@ def game_menu(deck, player, cat):
     while option != 1:
         if option == 2:
             print()
+            counter = 1
             for card in deck:
-                print(card)
+                print(f'{counter}: {card}')
+                counter += 1
             print()
         elif option == 3:
             print(f"\n{player}\n{cat}\n")

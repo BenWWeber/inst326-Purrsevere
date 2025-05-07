@@ -28,8 +28,8 @@ class Player:
 
     def __str__(self):
         return (
-            f"{self.name}: HP={self.health}, AtkMult={self.attack_multiplier}, "
-            f"DefMult={self.defense_multiplier}"
+            f"{self.name}: HP = {self.health}, Attack Multiplier = {round(self.attack_multiplier, 2)}, "
+            f"Defense Multiplier = {round(self.defense_multiplier, 2)}"
         )
 
 
@@ -222,7 +222,7 @@ if __name__ == "__main__":
     count = 1
     
     while not cat.is_defeated():
-        print(f"_____________________________________________________________"
+        print(f"_____________________________________________________________\n"
               + f"\nTurn {count}\n")
         card = game_menu(player_deck, player, cat)
         apply_card_effect(card, player, cat)
@@ -238,10 +238,9 @@ ZZZzz /,`.-'`'    -.  ;-;;,_
         apply_card_effect(computerTurn, cat, player)
         if player.is_defeated():
             print("Cat wins!")
-            print('''\n      |\      _,,,---,,_
-ZZZzz /,`.-'`'    -.  ;-;;,_
-     |,4-  ) )-,_. ,\ (  `'-'
-    '---''(_/--'  `-'\_)''')
+            print('''\n    |\__/,|   (`\\
+  _.|o o  |_   ) )
+-(((---(((--------''')
             break
         
         count += 1
