@@ -168,7 +168,7 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
         card object
 """
     cat_attacks = [card for card in cat_deck if card.type == 'attack']
-    cat_powerups = [card for card in cat_deck if card.type[:-4] == 'buff']
+    cat_powerups = [card for card in cat_deck if card.type[-4:] == 'buff']
     owner_attacks = [card for card in owner_deck if card.type == 'attack']
     
     #defend when owner's (player) attack can defeat cat (computer)
