@@ -13,7 +13,7 @@ class Player:
         self.defense_multiplier = 1.0
         self.fearCount = 1
 
-    def change_stat(self, stat, multiplier):
+    def change_stat(self, stat, multiplier):    
         if stat == 'attack':
             self.attack_multiplier *= multiplier
         elif stat == 'defense':
@@ -121,6 +121,12 @@ def validate_input(user_input):
         raise ValueError("Invalid input, please enter 'start' or 'end'")
 
 def apply_card_effect(card, user, target):
+    landed = True
+    accuracy = card.accuracy * 100
+    rng = random.random() * 100
+    if rng >= accuracy:
+        landed = False
+        
     if card.type == 'attack':
         hit, dmg = resolve_attack(
             card.accuracy,
@@ -136,18 +142,20 @@ def apply_card_effect(card, user, target):
                 + f"{target.name} has {target.health} health left.")
         else:
             print(f"{user.name}'s {card.name} missed!")
-    elif card.type == 'attack buff':
+    elif card.type == 'attack buff' and landed:
         user.change_stat('attack', card.magnitude)
         print(f"{user.name}'s attack buffed by {card.magnitude}")
-    elif card.type == 'attack debuff':
+    elif card.type == 'attack debuff' and landed:
         target.change_stat('attack', 1.0 * (1 - card.magnitude))
         print(f"{target.name}'s attack debuffed by {card.magnitude}")
-    elif card.type == 'defense buff':
+    elif card.type == 'defense buff' and landed:
         user.change_stat('defense', card.magnitude)
         print(f"{user.name}'s defense buffed by {card.magnitude}")
-    elif card.type == 'defense debuff':
+    elif card.type == 'defense debuff' and landed:
         target.change_stat('defense', 1.0 * (1 - card.magnitude))
         print(f"{target.name}'s defense debuffed by {card.magnitude}")
+    elif not landed:
+        print(f"{user.name}'s {card.name} missed!")
     else:
         print(f"Unknown card type: {card.type}")
 
