@@ -180,7 +180,7 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck, cat):
                 if max(attack.magnitude) * 2 >= cat_hp:
                     cat_defense.sort(key=lambda c: c.magnitude, reverse=True)
                     cat.fearCount += 1
-                    print("Cat is afraid, enrages and shows his meow-scles!")
+                    print("Cat is afraid! He enrages and shows his meow-scles!")
                     return cat_defense[0]
             
     #draw attack card if can defeat owner (player)    
