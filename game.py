@@ -134,15 +134,18 @@ def apply_card_effect(card, user, target):
                 + f"{target.name} has {target.health} health left.")
         else:
             print(f"{user.name}'s {card.name} missed!")
-    elif card.type == 'defense':
-        target.change_stat('defense', card.magnitude)
-        print(f"{target.name} gains defense x{card.magnitude}")
-    elif card.type == 'buff':
+    elif card.type == 'attack buff':
         user.change_stat('attack', card.magnitude)
-        print(f"{user.name}'s attack buff x{card.magnitude}")
-    elif card.type == 'debuff':
+        print(f"{user.name}'s attack buffed by {card.magnitude}")
+    elif card.type == 'attack debuff':
         target.change_stat('attack', 1.0 / card.magnitude)
-        print(f"{target.name}'s attack debuffed /{card.magnitude}")
+        print(f"{target.name}'s attack debuffed by {card.magnitude}")
+    elif card.type == 'defense buff':
+        user.change_stat('defense', card.magnitude)
+        print(f"{user.name}'s defense buffed by {card.magnitude}")
+    elif card.type == 'defense debuff':
+        target.change_stat('defense', 1.0 / card.magnitude)
+        print(f"{target.name}'s defense debuffed by {card.magnitude}")
     else:
         print(f"Unknown card type: {card.type}")
 
@@ -187,9 +190,6 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
         return random.choice(cat_attacks)
     else:
         return random.choice(cat_powerups)
-
-def print_menu(player_deck):
-    print('game menu goes here')
 
 if __name__ == "__main__":
     '''
