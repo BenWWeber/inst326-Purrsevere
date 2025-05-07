@@ -79,7 +79,8 @@ def process_deck(input_file, cat_output_file, owner_output_file, deck_number):
         print("Error writing to the owner output file")
         return
 
-def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0, defender_multiplier=1.0):
+def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0, 
+                   defender_multiplier=1.0):
     card_accuracy *= 100
     rng = random.random() * 100
     if rng >= card_accuracy:
