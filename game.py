@@ -93,7 +93,7 @@ def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0,
     else:
         raise ValueError("damage_range must be a range or a tuple of length 2")
 
-    damage = int(damage * user_multiplier * defender_multiplier)
+    damage = int(damage * user_multiplier / defender_multiplier)
     return True, damage
 
 def show_deck(deck, name=''):
@@ -138,13 +138,13 @@ def apply_card_effect(card, user, target):
         user.change_stat('attack', card.magnitude)
         print(f"{user.name}'s attack buffed by {card.magnitude}")
     elif card.type == 'attack debuff':
-        target.change_stat('attack', 1.0 / card.magnitude)
+        target.change_stat('attack', 1.0 * (1 - card.magnitude))
         print(f"{target.name}'s attack debuffed by {card.magnitude}")
     elif card.type == 'defense buff':
         user.change_stat('defense', card.magnitude)
         print(f"{user.name}'s defense buffed by {card.magnitude}")
     elif card.type == 'defense debuff':
-        target.change_stat('defense', 1.0 / card.magnitude)
+        target.change_stat('defense', 1.0 * (1 - card.magnitude))
         print(f"{target.name}'s defense debuffed by {card.magnitude}")
     else:
         print(f"Unknown card type: {card.type}")
@@ -217,14 +217,14 @@ if __name__ == "__main__":
     player_deck, cat_deck = deck_selection(player_decks, cat_decks)
     player_deck = player_decks[player_deck]
     
-    player = Player("Player", 200)
-    cat = Player("Cat", 200)
+    player = Player("Player", 500)
+    cat = Player("Cat", 500)
     count = 1
     
     while not cat.is_defeated():
         print(f"_____________________________________________________________"
               + f"\nTurn {count}\n")
-        card = game_menu(player_deck)
+        card = game_menu(player_deck, player, cat)
         apply_card_effect(card, player, cat)
         if cat.is_defeated():
             print("You win!")
