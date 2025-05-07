@@ -11,6 +11,7 @@ class Player:
         self.health = health
         self.attack_multiplier = 1.0
         self.defense_multiplier = 1.0
+        self.fearCount = 1
 
     def change_stat(self, stat, multiplier):
         if stat == 'attack':
@@ -150,7 +151,7 @@ def apply_card_effect(card, user, target):
     else:
         print(f"Unknown card type: {card.type}")
 
-def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
+def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck, cat):
     """Determines which card the computer (cat) draws. Prioritizes defense
     (if computer can be defeated in one turn), then attack (if owner can be
     defeated in one turn), then either attack or a powerup
@@ -173,11 +174,14 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck):
     
     #defend when owner's (player) attack can defeat cat (computer)
     cat_defense = [card for card in cat_powerups if card.type == 'defense buff']
-    if len(cat_defense) > 0:
-        for attack in owner_attacks:
-            if max(attack.magnitude) >= cat_hp:
-                cat_defense.sort(key=lambda c: max(c.magnitude), reverse=True)
-                return cat_defense[0]
+    if cat.fearCount == 1:
+        if len(cat_defense) > 0:
+            for attack in owner_attacks:
+                if max(attack.magnitude) * 2 >= cat_hp:
+                    cat_defense.sort(key=lambda c: c.magnitude, reverse=True)
+                    cat.fearCount += 1
+                    print("buff")
+                    return cat_defense[0]
             
     #draw attack card if can defeat owner (player)    
     #chooses strongest possible attack for increased chance of winning 
@@ -235,7 +239,7 @@ ZZZzz /,`.-'`'    -.  ;-;;,_
     '---''(_/--'  `-'\_)''')
             break
         computerTurn = computer_card_draw(player.health, cat.health, 
-                                          cat_deck, player_deck)
+                                          cat_deck, player_deck, cat)
         apply_card_effect(computerTurn, cat, player)
         if player.is_defeated():
             print("Cat wins!")
