@@ -11,7 +11,8 @@ import random
 
 # card class
 class Card:
-    def __init__(self, name, description, type_, magnitude, power_level, accuracy):
+    def __init__(self, name, description, type_, magnitude, power_level, 
+                 accuracy):
         self.name = name
         self.description = description
         self.type = type_
@@ -43,16 +44,16 @@ class Card:
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'attack debuff':
                 return (f'{self.name}: add a '
-                + f"{int(self.magnitude*100)}% debuff to your cats' attack with "
-                + f'{int(self.accuracy*100)}% accuracy')
+                + f"{int(self.magnitude*100)}% debuff to your cats' attack "
+                + f'with {int(self.accuracy*100)}% accuracy')
             case 'defense buff':
                 return (f'{self.name}: add a '
                 + f'{int((self.magnitude-1)*100)}% buff to your defense with '
                 + f'{int(self.accuracy*100)}% accuracy')
             case 'defense debuff':
                 return (f'{self.name}: add a '
-                + f"{int(self.magnitude*100)}% debuff to your cats' defense with "
-                + f'{int(self.accuracy*100)}% accuracy')
+                + f"{int(self.magnitude*100)}% debuff to your cats' defense "
+                + f'with {int(self.accuracy*100)}% accuracy')
     
 # make_deck description:
 # Creates multiple decks at the beginning of the game that the user can choose 

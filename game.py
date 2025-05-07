@@ -28,7 +28,8 @@ class Player:
 
     def __str__(self):
         return (
-            f"{self.name}: HP = {self.health}, Attack Multiplier = {round(self.attack_multiplier, 2)}, "
+            f"{self.name}: HP = {self.health}, Attack Multiplier = "
+            + f"{round(self.attack_multiplier, 2)}, " +
             f"Defense Multiplier = {round(self.defense_multiplier, 2)}"
         )
 
