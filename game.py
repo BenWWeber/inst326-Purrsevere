@@ -138,22 +138,22 @@ def apply_card_effect(card, user, target):
             target.health -= dmg
             if target.health <= 0:
                 target.health = 0
-            print(f"{user.name}'s {card.name} hits for {dmg} damage! "
+            print(f"{card.description}. Hits for {dmg} damage! "
                 + f"{target.name} has {target.health} health left.")
         else:
             print(f"{user.name}'s {card.name} missed!")
     elif card.type == 'attack buff' and landed:
         user.change_stat('attack', card.magnitude)
-        print(f"{user.name}'s attack buffed by {card.magnitude}")
+        print(f"{card.description}. {user.name}'s attack buffed by {card.magnitude}")
     elif card.type == 'attack debuff' and landed:
         target.change_stat('attack', 1.0 * (1 - card.magnitude))
-        print(f"{target.name}'s attack debuffed by {card.magnitude}")
+        print(f"{card.description}. {target.name}'s attack debuffed by {card.magnitude}")
     elif card.type == 'defense buff' and landed:
         user.change_stat('defense', card.magnitude)
-        print(f"{user.name}'s defense buffed by {card.magnitude}")
+        print(f"{card.description}. {user.name}'s defense buffed by {card.magnitude}")
     elif card.type == 'defense debuff' and landed:
         target.change_stat('defense', 1.0 * (1 - card.magnitude))
-        print(f"{target.name}'s defense debuffed by {card.magnitude}")
+        print(f"{card.description}. {target.name}'s defense debuffed by {card.magnitude}")
     elif not landed:
         print(f"{user.name}'s {card.name} missed!")
     else:
@@ -209,14 +209,14 @@ if __name__ == "__main__":
     
     ASCII art found at https://www.asciiart.eu/animals/cats
     '''
-    print('Welcome to Purrsevere!\n')
+    print('\nWelcome to Purrsevere!\n')
 
-    print('''_._     _,-'""`-._
+    print(r'''_._     _,-'""`-._
 (,-.`._,'(       |\`-/|
     `-.-' \ )-`( , o o)
-          `-    \`_`"'-\n''')
+          `-    \`_`"'-''')
     
-    print('Start by choosing a deck:')
+    print('\nStart by choosing a deck:')
     
     # make 3 player decks and 3 cat decks
     player_decks = list()
@@ -240,8 +240,8 @@ if __name__ == "__main__":
         card = game_menu(player_deck, player, cat)
         apply_card_effect(card, player, cat)
         if cat.is_defeated():
-            print("You win!")
-            print('''\n      |\      _,,,---,,_
+            print("You win!\n")
+            print(r'''      |\      _,,,---,,_
 ZZZzz /,`.-'`'    -.  ;-;;,_
      |,4-  ) )-,_. ,\ (  `'-'
     '---''(_/--'  `-'\_)''')
@@ -250,8 +250,8 @@ ZZZzz /,`.-'`'    -.  ;-;;,_
                                           cat_deck, player_deck, cat)
         apply_card_effect(computerTurn, cat, player)
         if player.is_defeated():
-            print("Cat wins!")
-            print('''\n    |\__/,|   (`\\
+            print("Cat wins!\n")
+            print(r'''    |\__/,|   (`\\
   _.|o o  |_   ) )
 -(((---(((--------''')
             break

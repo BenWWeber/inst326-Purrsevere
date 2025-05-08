@@ -72,7 +72,6 @@ def make_deck(path, max_count, max_power):
     deck = list()
     power = 0
     attacks = list()
-    defenses = list()
     buffs = list()
 
     # read in all the player cards and organize them by type
@@ -95,13 +94,6 @@ def make_deck(path, max_count, max_power):
                                         mag,
                                         float(card.group('power_level')),
                                         float(card.group('accuracy')),))
-                case 'defense':
-                    defenses.append(Card(card.group('name'),
-                                        card.group('description'),
-                                        card.group('type'),
-                                        float(card.group('magnitude')),
-                                        float(card.group('power_level')),
-                                        float(card.group('accuracy')),))
                 case 'attack buff' | 'attack debuff' | 'defense buff' | 'defense debuff':
                     buffs.append(Card(card.group('name'),
                                         card.group('description'),
@@ -115,18 +107,12 @@ def make_deck(path, max_count, max_power):
     power += current_card.power_level
     deck.append(current_card)
     
-    # add one random defense and remove from list (commented out for demo)
-    # current_card = defenses.pop(random.randint(0, len(defenses) - 1))
-    # power += current_card.power_level
-    # deck.append(current_card)
-    
     # add one random buff/debuff and remove from list
     current_card = buffs.pop(random.randint(0, len(buffs) - 1))
     power += current_card.power_level
     deck.append(current_card)
     
     # put together the card lists
-    # remaining_cards = attacks + defenses + buffs (commented out for demo)
     remaining_cards = attacks + buffs
 
     # sort by power level, highest to lowest
