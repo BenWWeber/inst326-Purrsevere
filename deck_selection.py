@@ -6,7 +6,7 @@ def deck_selection(human_decks, cat_decks):
         print(f'Deck {index + 1}')
         #counter = 1
         for card_num, card in enumerate(deck):
-            print(f'{card_num}: {card}')
+            print(f'{card_num + 1}: {card}')
             #counter += 1
         print()
 
