@@ -21,6 +21,7 @@ def game_menu(deck, player, cat):
             print(f"\n{player}\n{cat}\n")
         option = int(input("Select option: "))
     selection = int(input(f"Select card 1-{len(deck)}: ")) - 1 
+    print()
     
     return deck[selection]
     
