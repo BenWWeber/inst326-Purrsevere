@@ -103,23 +103,6 @@ def show_deck(deck, name=''):
     for card in deck:
         print(f'\t{card}')
 
-def validate_input(user_input):
-    print("Welcome to Purrsevere")
-    print("Enter 'start' to begin the battle or 'end' to quit.")
-    decks = [1, 2, 3, 4]
-
-    while True:
-        cmd = user_input.lower()
-        if cmd == 'end':
-            return "Game Ended"
-        if cmd == 'start':
-            choice = int(input("Begin by choosing a deck [1-4]: "))
-            if choice in decks:
-                print(f"Deck: {choice} chosen")
-                return show_deck(decks)
-            raise ValueError("Deck does not exist. Please enter 1, 2, 3, or 4")
-        raise ValueError("Invalid input, please enter 'start' or 'end'")
-
 def apply_card_effect(card, user, target):
     landed = True
     accuracy = card.accuracy * 100
