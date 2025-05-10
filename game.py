@@ -34,53 +34,6 @@ class Player:
             f"Defense Multiplier = {round(self.defense_multiplier, 2)}"
         )
 
-
-def process_deck(input_file, cat_output_file, owner_output_file, deck_number):
-    try:
-        with open(input_file, 'r', encoding="utf8") as file:
-            lines = file.readlines()
-    except FileNotFoundError:
-        print(f"Error: {input_file} was not found")
-        return
-
-    found_deck = False
-    deck_data = []
-    for line in lines:
-        line = line.strip()
-        if line.startswith(str(deck_number) + ':'):
-            found_deck = True
-            stats = line.split(':', 1)[1].split(',')
-            deck_data = [s.strip() for s in stats]
-            break
-
-    if not found_deck:
-        print(f"Deck {deck_number} not found")
-        return
-
-    # assume last two entries are health and multiplier
-    hp = deck_data[-2]
-    amp = deck_data[-1]
-    cat_stats = {'health_points': hp, 'attack_multiplier': amp}
-    owner_stats = {'health_points': hp, 'attack_multiplier': amp}
-
-    try:
-        with open(cat_output_file, 'w', encoding="utf8") as cat_file:
-            cat_file.write("Cat Stats:\n")
-            for k, v in cat_stats.items():
-                cat_file.write(f"{k}:{v}\n")
-    except IOError:
-        print("Error writing to the cat output file")
-        return
-
-    try:
-        with open(owner_output_file, 'w', encoding="utf8") as owner_file:
-            owner_file.write("Owner Stats:\n")
-            for k, v in owner_stats.items():
-                owner_file.write(f"{k}:{v}\n")
-    except IOError:
-        print("Error writing to the owner output file")
-        return
-
 def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0, 
                    defender_multiplier=1.0):
     card_accuracy *= 100
@@ -97,11 +50,6 @@ def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0,
 
     damage = int(damage * user_multiplier / defender_multiplier)
     return True, damage
-
-def show_deck(deck, name=''):
-    print(f"Deck{name}:")
-    for card in deck:
-        print(f'\t{card}')
 
 def apply_card_effect(card, user, target):
     landed = True
