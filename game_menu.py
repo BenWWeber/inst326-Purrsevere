@@ -1,9 +1,9 @@
-from updated_user_validation import validate_user_input 
+from input_validation import validate_input 
 
 def game_menu(deck, player, cat):
     # prints game options
 
-    option = validate_user_input("Menu:\
+    option = validate_input("Menu:\
         \nOption 1: select card\
         \nOption 2: show your deck\
         \nOption 3: show stats\
@@ -23,7 +23,7 @@ def game_menu(deck, player, cat):
             print(f"\n{player}\n{cat}\n")
         option = int(input("Select option: "))
         
-    selection = validate_user_input(f"Select card 1-{len(deck)}: ", int, 
+    selection = validate_input(f"Select card 1-{len(deck)}: ", int, 
                                     [deck.index(card) + 1 for card in deck]) - 1 
     print()
     
