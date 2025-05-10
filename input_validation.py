@@ -1,4 +1,4 @@
-def validate_user_input(input_type, data_type=str, allowed_values=None):
+def input_validation(input_type, data_type=str, allowed_values=None):
     while True:
         response = input(input_type)
         try:
