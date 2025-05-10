@@ -1,5 +1,5 @@
 import random 
-from updated_user_validation import validate_user_input 
+from input_validation import validate_input 
 
 def deck_selection(human_decks, cat_decks):
     
@@ -14,7 +14,7 @@ def deck_selection(human_decks, cat_decks):
             print(f'{card_num + 1}: {card}')
         print()
     
-    input = validate_user_input("Choose your deck: ", data_type=int, allowed_values=valid_inputs)
+    input = validate_input("Choose your deck: ", data_type=int, allowed_values=valid_inputs)
     human_selection = int(input) - 1
     computer_selection = random.choice(cat_decks)
     return human_selection, computer_selection
