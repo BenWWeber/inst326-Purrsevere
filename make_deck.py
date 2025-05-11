@@ -163,11 +163,3 @@ if __name__ == "__main__":
             lvl += card.power_level
             
         print(f'\tTotal deck power level: {lvl}\n')
-            
-    
-    
-            
-            
-
-
-    
