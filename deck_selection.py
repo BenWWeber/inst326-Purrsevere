@@ -2,7 +2,8 @@ import random
 from input_validation import validate_input 
 
 def deck_selection(owner_decks, cat_decks):
-    ''' prints decks to choose from, takes user input and chooses cat's deck
+    ''' Author: Connor Hall
+    prints decks to choose from, takes user input and chooses cat's deck
     
     Args:
         owner_decks (list): list of lists containing owner Card objects
