@@ -6,14 +6,54 @@ from make_deck import make_deck, Card
 from game_menu import game_menu
 
 class Player:
+    """
+    Primary author: Hagan Yeoh.
+    
+    Represents a player in the game, with health, attack, and defense 
+    multipliers, used for calculating combat outcomes and stat changes.
+
+    Attributes:
+        name (str): The name of the player (default: "Player").
+        health (int): The player's current health points (default: 100).
+        attack_multiplier (float): Modifier applied to outgoing damage 
+            (default: 1.0).
+        defense_multiplier (float): Modifier applied to incoming damage 
+            (default: 1.0).
+        fearCount (int): Tracks whether the cat should react defensively 
+            (default: 1).
+    """
+    
     def __init__(self, name="Player", health=100):
+        """
+        Primary author: Hagan Yeoh
+        
+        Initializes a Player object with a name, health, and default stat 
+        multipliers.
+
+        Args:
+            name (str, optional): The player's name.
+            health (int, optional): The player's starting health.
+        """
         self.name = name
         self.health = health
         self.attack_multiplier = 1.0
         self.defense_multiplier = 1.0
         self.fearCount = 1
 
-    def change_stat(self, stat, multiplier):    
+    def change_stat(self, stat, multiplier):
+        """
+        Primary author: Hagan Yeoh
+        
+        Changes the player's attack or defense stat by multiplying it with a 
+        given factor.
+
+        Args:
+            stat (str): Either "attack" or "defense".
+            multiplier (float): The value to multiply the selected stat by.
+
+        Raises:
+            ValueError: If an invalid stat name is provided.
+        """    
         if stat == 'attack':
             self.attack_multiplier *= multiplier
         elif stat == 'defense':
@@ -22,12 +62,28 @@ class Player:
             raise ValueError("Invalid stat; choose 'attack' or 'defense'")
 
     def is_defeated(self):
+        """
+        Primary author: Hagan Yeoh
+        
+        Checks if the player's health is zero or below.
+
+        Returns:
+            bool: True if player is defeated, False otherwise.
+        """
         if self.health <= 0:
             return True
         else:
             return False
 
     def __str__(self):
+        """
+        Primary author: Hagan Yeoh
+        
+        Returns a string representation of the player's current stats.
+
+        Returns:
+            str: A readable summary of health and stat multipliers.
+        """
         return (
             f"{self.name}: HP = {self.health}, Attack Multiplier = "
             + f"{round(self.attack_multiplier, 2)}, " +
@@ -37,6 +93,32 @@ class Player:
 
 def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0, 
                    defender_multiplier=1.0):
+    """
+    Primary author: Hagan Yeoh, Skill demonstrated: Optional Parameters
+    
+    Resolves whether an attack hits and calculates the damage dealt based on 
+    accuracy,
+    damage range, and the respective stat multipliers of the attacker and 
+    defender.
+
+    This function includes optional parameters for user and defender multipliers
+    to allow flexible scaling of damage logic without requiring additional 
+    arguments in simple cases.
+
+    Args:
+        card_accuracy (float): A float between 0 and 1 representing base 
+        accuracy.
+        damage_range (range or tuple): Range or tuple indicating possible damage 
+        values.
+        user_multiplier (float, optional): Attacker's attack multiplier 
+        (default is 1.0).
+        defender_multiplier (float, optional): Defender's defense multiplier 
+        (default is 1.0).
+
+    Returns:
+        tuple: A tuple (bool, int) indicating whether the attack landed and how 
+        much damage it caused.
+    """
     card_accuracy *= 100
     rng = random.random() * 100
     if rng >= card_accuracy:
@@ -54,6 +136,26 @@ def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0,
 
 
 def apply_card_effect(card, user, target):
+    """
+    Primary author: Hagan Yeoh, Skill demonstrated: Sequence Unpacking
+    
+    Applies the effects of a given card from one player to another. 
+    Handles attacks, stat buffs, and debuffs, and prints the outcomes of 
+    those actions.
+
+    This function uses sequence unpacking to retrieve the result of an attack 
+    operation, increasing code clarity and separating logic cleanly into 
+    reusable parts.
+
+    Args:
+        card (Card): The card object being used by the user.
+        user (Player): The Player using the card.
+        target (Player): The opponent receiving the effect.
+
+    Side effects:
+        Modifies player stats or health in place.
+        Prints the result of the card usage.
+    """
     landed = True
     accuracy = card.accuracy * 100
     rng = random.random() * 100
@@ -94,10 +196,7 @@ def apply_card_effect(card, user, target):
 
 
 def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck, cat):
-    """ Author: Connor Hall
-    Techniques: list comprehensions, key function with max()
-    
-    Determines which card the computer (cat) draws. Prioritizes defense
+    """Determines which card the computer (cat) draws. Prioritizes defense
     (if computer can be defeated in one turn), then attack (if owner can be
     defeated in one turn), then either attack or a powerup
     
