@@ -3,6 +3,8 @@ from input_validation import validate_input
 
 def deck_selection(owner_decks, cat_decks):
     ''' Author: Connor Hall
+    Techniques: none
+    
     prints decks to choose from, takes user input and chooses cat's deck
     
     Args:
