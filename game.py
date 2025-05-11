@@ -196,7 +196,10 @@ def apply_card_effect(card, user, target):
 
 
 def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck, cat):
-    """Determines which card the computer (cat) draws. Prioritizes defense
+    """Author: Connor Hall
+    Techniques: list comprehensions, key function with max()
+    
+    Determines which card the computer (cat) draws. Prioritizes defense
     (if computer can be defeated in one turn), then attack (if owner can be
     defeated in one turn), then either attack or a powerup
     
