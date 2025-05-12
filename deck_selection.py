@@ -28,7 +28,8 @@ def deck_selection(owner_decks, cat_decks):
             print(f'{card_num + 1}: {card}')
         print()
     
-    input = validate_input("Choose your deck: ", data_type=int, allowed_values=valid_inputs)
+    input = validate_input("Choose your deck: ", data_type=int, \
+        allowed_values=valid_inputs)
     owner_selection = int(input) - 1
     cat_selection = random.choice(cat_decks)
     return owner_selection, cat_selection
