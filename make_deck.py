@@ -63,6 +63,7 @@ class Card:
     def __str__(self):
         """
         Author: Benjamin Weber
+        Techniques: magic method
 
         creates a Card representation of Card objects,
         used when displaying decks
@@ -97,6 +98,7 @@ class Card:
 def make_deck(path, max_count, max_power):
     """
     Author: Benjamin Weber
+    Technique: regular expressions
     
     Creates multiple decks at the beginning of the game that the user can choose 
     from. Chooses cards with assigned strength points. The sum of these values 
