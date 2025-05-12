@@ -103,7 +103,7 @@ def turn_history(user, card, effect, turn, health):
             is false
             
     Side effects:
-        writing back the stats of players to a file called tur_history.txt
+        writing back the stats of players to a file called turn_history.txt
     """
 
     try:
