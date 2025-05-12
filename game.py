@@ -271,6 +271,27 @@ def parse_args(arglist):
     
     return parser.parse_args(arglist)
 
+def turn_history(apply_card_effect, turn, filepath, game_over=False):
+    """Logs the output of apply_car_effect to a file
+
+    Args:
+        apply_card_effect (str): the output of the apply_car_function
+        turn (int): The current turn number
+        filepath (str): name of the file
+        game_over (bool, optional): Whether the game has ended or not. Default
+            is false
+    """
+    card_effect = apply_card_effect
+    
+    try:
+        with open(filepath, "w", encoding="utf-8") as file:
+            file.write(f"Turn {turn}\n")
+            file.write(card_effect + "\n")
+            if game_over:
+                file.write("_____ end of game ____\n")
+    except:
+        print("Error writing to log file")
+
 
 if __name__ == "__main__":
     '''
