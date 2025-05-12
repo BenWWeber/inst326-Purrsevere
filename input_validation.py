@@ -3,6 +3,8 @@ def validate_input(input_type, data_type=str, allowed_values=None):
     
     Primary Author: Jadon Tallapally
     
+    techniques: conditional expressions
+    
     Args:
         input_type(str or int): Any type of input that the game requests from 
                 the user
