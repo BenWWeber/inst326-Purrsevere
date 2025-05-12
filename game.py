@@ -1,5 +1,6 @@
 import random
 import re
+import sys
 from argparse import ArgumentParser
 from deck_selection import deck_selection
 from make_deck import make_deck, Card
@@ -244,11 +245,41 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck, cat):
         return random.choice(cat_powerups)
 
 
+def parse_args(arglist):
+    """Author: Dhawal Patel
+    Techniques: ArgumentParser
+    
+    parses command line arguments
+    
+    Optional arguments:
+        -d, --difficulty: specify the difficulty of the battle
+        -l, --length: specify the lenght of the game
+    
+    Args:
+        arglist (list of str): arguments from the command line
+        
+    Returns:
+        namespace: the parsed arguments as a namespace
+    """
+    parser = ArgumentParser()
+    parser.add_argument("-d", "--difficulty", type=str, default="easy",
+        choices=["easy", "hard"], 
+        help="difficulty of the game, options are 'easy' and 'hard'")
+    parser.add_argument("-l", "--length", type=str, default="short",
+        choices=["short", "long"],
+        help="length of the game, options are 'short' and 'long'")
+    
+    return parser.parse_args(arglist)
+
+
 if __name__ == "__main__":
     '''
     
     ASCII art found at https://www.asciiart.eu/animals/cats
     '''
+    
+    args = parse_args(sys.argv[1:])
+    
     print('\nWelcome to Purrsevere!\n')
 
     print(r'''_._     _,-'""`-._
@@ -270,8 +301,17 @@ if __name__ == "__main__":
     player_deck, cat_deck = deck_selection(player_decks, cat_decks)
     player_deck = player_decks[player_deck]
     
-    player = Player("Player", 500)
-    cat = Player("Cat", 500)
+    if args.length == "short":
+        player_hp = 100
+        cat_hp = 100
+    else:
+        player_hp = 500
+        cat_hp = 500
+    if args.difficulty == "hard":
+        cat_hp += 100
+        
+    player = Player("Player", player_hp)
+    cat = Player("Cat", cat_hp)
     count = 1
     
     while not cat.is_defeated():
