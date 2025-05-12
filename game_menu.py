@@ -1,7 +1,10 @@
 from input_validation import validate_input 
 
 def game_menu(deck, owner, cat):
-    ''' prints game options, enables user to select card for each turn
+    ''' author: Jadon
+    technique: f-strings
+    
+    prints game options, enables user to select card for each turn
     
     Args:
         deck (list): list of card objects
