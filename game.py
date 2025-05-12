@@ -23,7 +23,7 @@ class Player:
             (default: 1).
     """
     
-    def __init__(self, name="Player", health):
+    def __init__(self, name="Player", health=100):
         """
         Primary author: Hagan Yeoh
         
@@ -242,7 +242,7 @@ def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck, cat):
         
     Returns:
         card object
-"""
+    """
     cat_attacks = [card for card in cat_deck if card.type == 'attack']
     cat_powerups = [card for card in cat_deck if card.type[-4:] == 'buff']
     owner_attacks = [card for card in owner_deck if card.type == 'attack']
@@ -300,6 +300,7 @@ def parse_args(arglist):
 
 if __name__ == "__main__":
     '''
+    runs the game
     
     ASCII art found at https://www.asciiart.eu/animals/cats
     '''

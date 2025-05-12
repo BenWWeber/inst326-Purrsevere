@@ -11,8 +11,36 @@ import random
 
 # card class
 class Card:
+    """
+    Primary author: Benjamin Weber
+
+    Card object that holds all needed values for any given card
+    
+    Attributes:
+        name (str): name of the card
+        description (str): description of the card, used during battle
+        magnitude (float or tuple of ints): strength of effect of card, tuple 
+            listing attack range if attack card, multiplier otherwise
+        power_level (int): number representing the strength of the card, used in
+            the deck creation algorithm
+        accuracy (float): accuracy of card as a percent
+    """
     def __init__(self, name, description, type_, magnitude, power_level, 
                  accuracy):
+        """
+        Author: Benjamin Weber
+
+        creates a Card object
+        
+        Args:
+            name (str): name of the card
+            description (str): description of the card, used during battle
+            magnitude (float or tuple of ints): strength of effect of card, tuple 
+                listing attack range if attack card, multiplier otherwise
+            power_level (int): number representing the strength of the card, used in
+                the deck creation algorithm
+            accuracy (float): accuracy of card as a percent
+        """
         self.name = name
         self.description = description
         self.type = type_
@@ -21,6 +49,11 @@ class Card:
         self.accuracy = accuracy
 
     def __repr__(self):
+        """
+        Primary author: Benjamin Weber
+
+        creates a Card formal representation of Card objects, used in testing
+        """
         return (
             f'Card Name: {self.name}, Description: {self.description}, '
             f'Type: {self.type}, Magnitude: {self.magnitude}, '
@@ -28,7 +61,12 @@ class Card:
         )
     
     def __str__(self):
-        
+        """
+        Author: Benjamin Weber
+
+        creates a Card representation of Card objects,
+        used when displaying decks
+        """
         match self.type:
             case 'attack':
                 return (f'{self.name}: does '
@@ -54,21 +92,22 @@ class Card:
                 return (f'{self.name}: add a '
                 + f"{int(self.magnitude*100)}% debuff to your cats' defense "
                 + f'with {int(self.accuracy*100)}% accuracy')
-    
-# make_deck description:
-# Creates multiple decks at the beginning of the game that the user can choose 
-# from. Chooses cards with assigned strength points. The sum of these values 
-# shoud not go higher than a specified max power level. Every deck should have 
-# at least one attack, one defense, and one buff/debuff card.
-# 
-# The algorithm will need: 
-#  - Card names, descriptions, and stats, which will be pulled from and created 
-#        algorithmically from a data file
-#  - Specified numbers of cards to put in deck
-#  - Max power level of deck
 
 # deck function
 def make_deck(path, max_count, max_power):
+    """
+    Author: Benjamin Weber
+    
+    Creates multiple decks at the beginning of the game that the user can choose 
+    from. Chooses cards with assigned strength points. The sum of these values 
+    shoud not go higher than a specified max power level. Every deck should have 
+    at least one attack and one buff/debuff card.
+    
+    Args:
+        path (str): path to text file of cards to pull from
+        max_count (int): maximum amount of cards that can be in a deck
+        max_power (int): maximum total 'power' values of cards 
+    """
     deck = list()
     power = 0
     attacks = list()
