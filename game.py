@@ -92,6 +92,28 @@ class Player:
         )
 
 
+def turn_history(user, card, effect, turn, health):
+    """Logs the output of apply_car_effect to a file
+
+    Args:
+        apply_card_effect (str): the output of the apply_car_function
+        turn (int): The current turn number
+        filepath (str): name of the file
+        game_over (bool, optional): Whether the game has ended or not. Default
+            is false
+    """
+
+    try:
+        with open("turn_history.txt", "a", encoding="utf-8") as file:
+            file.write(f"Turn {turn}\n")
+            file.write(f"{user} used {card} with effect {effect}\n")
+            file.write("")
+            if health == 0:
+                file.write("_____ end of game ____\n")
+    except:
+        print("Error writing to log file")
+
+
 def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0, 
                    defender_multiplier=1.0):
     """
@@ -136,7 +158,7 @@ def resolve_attack(card_accuracy, damage_range, user_multiplier=1.0,
     return True, damage
 
 
-def apply_card_effect(card, user, target):
+def apply_card_effect(card, user, target, turn):
     """
     Primary author: Hagan Yeoh, Skill demonstrated: Sequence Unpacking
     
@@ -194,6 +216,8 @@ def apply_card_effect(card, user, target):
         print(f"{user.name}'s {card.name} missed!")
     else:
         print(f"Unknown card type: {card.type}")
+        
+    turn_history(user.name, card.name, card.magnitude, turn, target.health)
 
 
 def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck, cat):
@@ -271,27 +295,6 @@ def parse_args(arglist):
     
     return parser.parse_args(arglist)
 
-def turn_history(apply_card_effect, turn, filepath, game_over=False):
-    """Logs the output of apply_car_effect to a file
-
-    Args:
-        apply_card_effect (str): the output of the apply_car_function
-        turn (int): The current turn number
-        filepath (str): name of the file
-        game_over (bool, optional): Whether the game has ended or not. Default
-            is false
-    """
-    card_effect = apply_card_effect
-    
-    try:
-        with open(filepath, "w", encoding="utf-8") as file:
-            file.write(f"Turn {turn}\n")
-            file.write(card_effect + "\n")
-            if game_over:
-                file.write("_____ end of game ____\n")
-    except:
-        print("Error writing to log file")
-
 
 if __name__ == "__main__":
     '''
@@ -339,7 +342,7 @@ if __name__ == "__main__":
         print(f"_____________________________________________________________\n"
               + f"\nTurn {count}\n")
         card = game_menu(player_deck, player, cat)
-        apply_card_effect(card, player, cat)
+        apply_card_effect(card, player, cat, count) 
         if cat.is_defeated():
             print("You win!\n")
             print(r'''      |\      _,,,---,,_
@@ -349,7 +352,7 @@ ZZZzz /,`.-'`'    -.  ;-;;,_
             break
         computerTurn = computer_card_draw(player.health, cat.health, 
                                           cat_deck, player_deck, cat)
-        apply_card_effect(computerTurn, cat, player)
+        apply_card_effect(computerTurn, cat, player, count)
         if player.is_defeated():
             print("Cat wins!\n")
             print(r'''    |\__/,|   (`\\
