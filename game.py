@@ -92,17 +92,20 @@ class Player:
 
 
 def turn_history(user, card, effect, turn, health):
-    """Logs the output of apply_car_effect to a file
+    """author: Dhawal
+    technique: with statement
+    
+    Logs the turn history and effects to a file
 
     Args:
-        apply_card_effect (str): the output of the apply_car_function
+        user (Player object): the current user playing
+        card (card object): the current card
+        effect (int): the effect of the card
         turn (int): The current turn number
-        filepath (str): name of the file
-        game_over (bool, optional): Whether the game has ended or not. Default
-            is false
+        health (int): the health of the targeted player
             
     Side effects:
-        writing back the stats of players to a file called turn_history.txt
+        writing to turn_history.txt
     """
 
     try:
