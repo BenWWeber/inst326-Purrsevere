@@ -37,8 +37,8 @@ class Card:
             description (str): description of the card, used during battle
             magnitude (float or tuple of ints): strength of effect of card, tuple 
                 listing attack range if attack card, multiplier otherwise
-            power_level (int): number representing the strength of the card, used in
-                the deck creation algorithm
+            power_level (int): number representing the strength of the card, 
+                used in the deck creation algorithm
             accuracy (float): accuracy of card as a percent
         """
         self.name = name
@@ -135,7 +135,8 @@ def make_deck(path, max_count, max_power):
                                         mag,
                                         float(card.group('power_level')),
                                         float(card.group('accuracy')),))
-                case 'attack buff' | 'attack debuff' | 'defense buff' | 'defense debuff':
+                case 'attack buff' | 'attack debuff' | 'defense buff' | \
+                    'defense debuff':
                     buffs.append(Card(card.group('name'),
                                         card.group('description'),
                                         card.group('type'),
@@ -163,7 +164,8 @@ def make_deck(path, max_count, max_power):
     while max_count > len(deck) and remaining_cards:
         
         # remove all cards too strong to fit in the deck
-        while remaining_cards and remaining_cards[0].power_level > (max_power - power):
+        while remaining_cards and remaining_cards[0].power_level > \
+            (max_power - power):
             remaining_cards.pop(0)
 
         if not remaining_cards:
@@ -177,11 +179,13 @@ def make_deck(path, max_count, max_power):
                 if card.power_level == strongest_cards[0].power_level:
                     strongest_cards.append(card)
             
-            current_card = strongest_cards.pop(random.randint(0, len(strongest_cards) - 1))
+            current_card = strongest_cards.pop(random.randint(0, \
+                len(strongest_cards) - 1))
             power += current_card.power_level
             deck.append(current_card)
         else:
-            current_card = remaining_cards.pop(random.randint(0, len(remaining_cards) - 1))
+            current_card = remaining_cards.pop(random.randint(0, \
+                len(remaining_cards) - 1))
             power += current_card.power_level
             deck.append(current_card)
         
