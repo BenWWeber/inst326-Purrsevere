@@ -1,9 +1,8 @@
 import random
-import re
 import sys
 from argparse import ArgumentParser
 from deck_selection import deck_selection
-from make_deck import make_deck, Card
+from make_deck import make_deck
 from game_menu import game_menu
 
 class Player:
@@ -24,7 +23,7 @@ class Player:
             (default: 1).
     """
     
-    def __init__(self, name="Player", health=100):
+    def __init__(self, name="Player", health):
         """
         Primary author: Hagan Yeoh
         
