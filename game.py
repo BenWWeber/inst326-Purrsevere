@@ -101,6 +101,9 @@ def turn_history(user, card, effect, turn, health):
         filepath (str): name of the file
         game_over (bool, optional): Whether the game has ended or not. Default
             is false
+            
+    Side effects:
+        writing back the stats of players to a file called tur_history.txt
     """
 
     try:
