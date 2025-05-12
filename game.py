@@ -207,16 +207,20 @@ def apply_card_effect(card, user, target, turn):
             print(f"{user.name}'s {card.name} missed!")
     elif card.type == 'attack buff' and landed:
         user.change_stat('attack', card.magnitude)
-        print(f"{card.description}. {user.name}'s attack buffed by {card.magnitude}")
+        print(f"{card.description}. {user.name}'s attack buffed by \
+              {card.magnitude}")
     elif card.type == 'attack debuff' and landed:
         target.change_stat('attack', 1.0 * (1 - card.magnitude))
-        print(f"{card.description}. {target.name}'s attack debuffed by {card.magnitude}")
+        print(f"{card.description}. {target.name}'s attack debuffed by \
+              {card.magnitude}")
     elif card.type == 'defense buff' and landed:
         user.change_stat('defense', card.magnitude)
-        print(f"{card.description}. {user.name}'s defense buffed by {card.magnitude}")
+        print(f"{card.description}. {user.name}'s defense buffed by \
+              {card.magnitude}")
     elif card.type == 'defense debuff' and landed:
         target.change_stat('defense', 1.0 * (1 - card.magnitude))
-        print(f"{card.description}. {target.name}'s defense debuffed by {card.magnitude}")
+        print(f"{card.description}. {target.name}'s defense debuffed by \
+              {card.magnitude}")
     elif not landed:
         print(f"{user.name}'s {card.name} missed!")
     else:
