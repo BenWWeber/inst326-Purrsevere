@@ -14,8 +14,8 @@ def validate_input(input_type, data_type=str, allowed_values=None):
             input have to match (default = None)
        
     Returns:
-        converted_value(str or int): The validated and converted input value that 
-        matches the specified data_type
+        converted_value(str or int): The validated and converted input value 
+        that matches the specified data_type
         
     Side Effects:
         prints to the console error messages if input is invalid:
@@ -29,7 +29,8 @@ def validate_input(input_type, data_type=str, allowed_values=None):
         response = input(input_type)
         try:
             input_value = response.lower() if data_type is str else response
-            converted_value = input_value if data_type is str else data_type(input_value)
+            converted_value = input_value if data_type is str else \
+                data_type(input_value)
         
         except ValueError:
             print(f"Please enter a valid {data_type.__name__}")
