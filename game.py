@@ -91,7 +91,7 @@ class Player:
         )
 
 
-def turn_history(user, card, effect, turn, health):
+def turn_history(user, card, effect, turn, health, landed):
     """author: Dhawal
     technique: with statement
     
@@ -107,11 +107,13 @@ def turn_history(user, card, effect, turn, health):
     Side effects:
         writing to turn_history.txt
     """
-
     try:
         with open("turn_history.txt", "a", encoding="utf-8") as file:
             file.write(f"Turn {turn}\n")
-            file.write(f"{user} used {card} with effect {effect}\n")
+            if landed == True:
+               file.write(f"{user} used {card} with effect {effect}\n")
+            else:
+                file.write(f"{user} used {card} but missed\n")
             file.write("")
             if health == 0:
                 file.write("_____ end of game ____\n")
@@ -205,28 +207,34 @@ def apply_card_effect(card, user, target, turn):
                 + f"{target.name} has {target.health} health left.")
         else:
             print(f"{user.name}'s {card.name} missed!")
-    elif card.type == 'attack buff' and landed:
-        user.change_stat('attack', card.magnitude)
-        print(f"{card.description}. {user.name}'s attack buffed by "
-             f"{card.magnitude}")
-    elif card.type == 'attack debuff' and landed:
-        target.change_stat('attack', 1.0 * (1 - card.magnitude))
-        print(f"{card.description}. {target.name}'s attack debuffed by "
-            f"{card.magnitude}")
-    elif card.type == 'defense buff' and landed:
-        user.change_stat('defense', card.magnitude)
-        print(f"{card.description}. {user.name}'s defense buffed by "
-            f"{card.magnitude}")
-    elif card.type == 'defense debuff' and landed:
-        target.change_stat('defense', 1.0 * (1 - card.magnitude))
-        print(f"{card.description}. {target.name}'s defense debuffed by "
-            f"{card.magnitude}")
-    elif not landed:
-        print(f"{user.name}'s {card.name} missed!")
-    else:
-        print(f"Unknown card type: {card.type}")
+            
+        turn_history(user.name, card.name, dmg, turn, \
+            target.health, landed)
+    
+    else:    
+        if card.type == 'attack buff' and landed:
+            user.change_stat('attack', card.magnitude)
+            print(f"{card.description}. {user.name}'s attack buffed by "
+                f"{card.magnitude}")
+        elif card.type == 'attack debuff' and landed:
+            target.change_stat('attack', 1.0 * (1 - card.magnitude))
+            print(f"{card.description}. {target.name}'s attack debuffed by "
+                f"{card.magnitude}")
+        elif card.type == 'defense buff' and landed:
+            user.change_stat('defense', card.magnitude)
+            print(f"{card.description}. {user.name}'s defense buffed by "
+                f"{card.magnitude}")
+        elif card.type == 'defense debuff' and landed:
+            target.change_stat('defense', 1.0 * (1 - card.magnitude))
+            print(f"{card.description}. {target.name}'s defense debuffed by "
+                f"{card.magnitude}")
+        elif not landed:
+            print(f"{user.name}'s {card.name} missed!")
+        else:
+            print(f"Unknown card type: {card.type}")
         
-    turn_history(user.name, card.name, card.magnitude, turn, target.health)
+        turn_history(user.name, card.name, card.magnitude, turn, \
+            target.health, landed)
 
 
 def computer_card_draw(owner_hp, cat_hp, cat_deck, owner_deck, cat):
